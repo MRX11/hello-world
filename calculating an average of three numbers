@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+main()
+{
+      float a, b, c, t, o;
+
+      printf("1.number enter: ");
+      scanf("%f", &a);
+      printf("2. number enter: ");
+      scanf("%f", &b);
+      printf("3. number enter: ");
+      scanf("%f", &c);
+
+      printf("Ortalama = %f", o = ((a+b+c)/3));
+      getch();
+}
