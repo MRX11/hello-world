@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <conio.h>
+#include <time.h>
+#include <windows.h>
+
+void gotoxy(int x, int y)
+{
+    COORD coord; // coordinates
+    coord.X = x; coord.Y = y; // X and Y coordinates
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void frame(int x1, int y1, int x2, int y2)
+{
+    int i,j;
+    for(i=x1;i<=x2;i++)
+    {
+        gotoxy(i,y1); printf("%c", 196);
+        gotoxy(i,y2); printf("%c", 196);
+    }
+    
+    for(j=y1;j<=y2;j++)
+    {
+        gotoxy(x1,j); printf("%c", 179);
+        gotoxy(x2,j); printf("%c", 179);
+    }
+    
+    gotoxy(x1,y1); printf("%c", 218);
+    gotoxy(x1,y2); printf("%c", 192);
+    gotoxy(x2,y1); printf("%c", 191);
+    gotoxy(x2,y2); printf("%c", 217);
+}
+
+void jackpot(int chance)
+{
+    
+     frame(5,5,75,22);
+     frame(10,10,25,20);
+     frame(30,10,45,20);
+     frame(50,10,65,20);
+    
+    int seed = time(NULL);
+    srand(seed);
+    int a=rand()%8+1;
+    int b=rand()%8+1;
+    int c=rand()%8+1;
+    
+    gotoxy(18,15); printf("%d", a);
+    gotoxy(38,15); printf("%d", b);
+    gotoxy(58,15); printf("%d", c);
+    
+    if((a==b)&&(b==c))
+    {
+        gotoxy(30,7); printf("  !JACKPOT!->%d", chance);
+    }
+    else if((a==b)||(b==c)||(a==c))
+    {
+        gotoxy(30,7); printf("Nice try");
+    }
+    else 
+    {
+        gotoxy(30,7); printf(" bad chance!");
+    }
+    ++chance;
+}
+
+main()
+{
+    char tus;
+    void jackpot(int chance);
+    int chance = 1;
+    
+    do
+    {
+        jackpot(chance);
+        ++chance;
+        tus=getch();
+    }
+    while(tus!=27);
+}
